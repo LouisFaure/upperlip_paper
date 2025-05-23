@@ -83,7 +83,7 @@ def proportion_test(adata,
 
 import matplotlib.pyplot as plt
 
-def plot_proportion_test(prop_res,sort=True):
+def plot_proportion_test(prop_res,sort=True,show=None,ax=None):
     prop_res = prop_res.copy()
     
     exclu=(prop_res.iloc[:,:2]==0)
@@ -102,8 +102,9 @@ def plot_proportion_test(prop_res,sort=True):
                                                    "boot_CI_97.5"]]).apply(all,axis=1)]
     if sort:
         prop_res=prop_res.sort_values("obs_log2FD",ascending=False)
-
-    fig, ax = plt.subplots()
+    
+    if ax is None:
+        fig, ax = plt.subplots()
 
     ax.scatter(prop_res.obs_log2FD,
                prop_res.clusters,c="grey")
@@ -151,4 +152,7 @@ def plot_proportion_test(prop_res,sort=True):
     samples=exclu.columns
     
     ax.set_title(samples[0]+r"$\leftrightarrow$"+samples[1])
+    
+    if show == False:
+        return ax
     
