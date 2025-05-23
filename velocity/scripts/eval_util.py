@@ -148,7 +148,7 @@ def cross_boundary_correctness(adata,
                                k_velocity, 
                                cluster_edges, 
                                return_raw=False, 
-                               x_emb="X_umap"):
+                               emb="X_umap"):
     """Cross-Boundary Direction Correctness Score (A->B)
     
     Args:
@@ -169,8 +169,8 @@ def cross_boundary_correctness(adata,
     scores = {}
     all_scores = {}
     
-    x_emb = adata.obsm[x_emb]
-    if x_emb == "X_umap":
+    x_emb = adata.obsm[emb]
+    if emb == "X_umap":
         v_emb = adata.obsm['{}_umap'.format(k_velocity)]
     else:
         v_emb = adata.obsm[[key for key in adata.obsm if key.startswith(k_velocity)][0]]
